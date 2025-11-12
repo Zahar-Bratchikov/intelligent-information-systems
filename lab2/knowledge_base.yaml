@@ -1,0 +1,180 @@
+rules:
+  - id: 1
+    condition: 
+      - { variable: "Бюджет", operator: "<", value: 50000 }
+    conclusion: { variable: "Бюджет", value: "низкий" }
+  
+  - id: 2
+    condition: 
+      - { variable: "Бюджет", operator: ">=", value: 50000 }
+      - { variable: "Бюджет", operator: "<", value: 100000 }
+    conclusion: { variable: "Бюджет", value: "средний" }
+  
+  - id: 3
+    condition: 
+      - { variable: "Бюджет", operator: ">=", value: 150000 }
+    conclusion: { variable: "Бюджет", value: "высокий" }
+  
+  - id: 4
+    condition: 
+      - { variable: "Бюджет", operator: "==", value: "низкий" }
+      - { variable: "Ограничения по здоровью", operator: "==", value: "да" }
+    conclusion: { variable: "Поездка по России", value: "да" }
+  
+  - id: 5
+    condition: 
+      - { variable: "Бюджет", operator: "in", value: ["средний", "высокий"] }
+      - { variable: "Ограничения по здоровью", operator: "==", value: "нет" }
+    conclusion: { variable: "Возможна заграница", value: "да" }
+  
+  - id: 6
+    condition: 
+      - { variable: "Хочу море", operator: "==", value: "да" }
+      - { variable: "Сезон", operator: "==", value: "лето" }
+    conclusion: { variable: "Доступен пляжный отдых", value: "да" }
+  
+  - id: 7
+    condition: 
+      - { variable: "Хочу горы", operator: "==", value: "да" }
+      - { variable: "Сезон", operator: "==", value: "лето" }
+    conclusion: { variable: "Доступен летний горный отдых", value: "да" }
+  
+  - id: 8
+    condition: 
+      - { variable: "Хочу горы", operator: "==", value: "да" }
+      - { variable: "Сезон", operator: "==", value: "зима" }
+    conclusion: { variable: "Доступен горнолыжный отдых", value: "да" }
+  
+  - id: 9
+    condition: 
+      - { variable: "Хочу экскурсии", operator: "==", value: "да" }
+      - { variable: "Есть транспорт", operator: "==", value: "да" }
+    conclusion: { variable: "Доступен городской тур", value: "да" }
+  
+  - id: 10
+    condition: 
+      - { variable: "Поездка по России", operator: "==", value: "да" }
+      - { variable: "Доступен пляжный отдых", operator: "==", value: "да" }
+    conclusion: { variable: "Доступен пляжный отдых в России", value: "да" }
+  
+  - id: 11
+    condition: 
+      - { variable: "Возможна заграница", operator: "==", value: "да" }
+      - { variable: "Доступен пляжный отдых", operator: "==", value: "да" }
+    conclusion: { variable: "Доступен пляжный отдых за границей", value: "да" }
+  
+  - id: 12
+    condition: 
+      - { variable: "Поездка по России", operator: "==", value: "да" }
+      - { variable: "Доступен горнолыжный отдых", operator: "==", value: "да" }
+    conclusion: { variable: "Доступен зимний горный отдых в России", value: "да" }
+  
+  - id: 13
+    condition: 
+      - { variable: "Возможна заграница", operator: "==", value: "да" }
+      - { variable: "Доступен горнолыжный отдых", operator: "==", value: "да" }
+    conclusion: { variable: "Доступен зимний горный отдых за границей", value: "да" }
+  
+  - id: 14
+    condition: 
+      - { variable: "Поездка по России", operator: "==", value: "да" }
+      - { variable: "Доступен летний горный отдых", operator: "==", value: "да" }
+    conclusion: { variable: "Доступен летний горный отдых в России", value: "да" }
+  
+  - id: 15
+    condition: 
+      - { variable: "Возможна заграница", operator: "==", value: "да" }
+      - { variable: "Доступен летний горный отдых", operator: "==", value: "да" }
+    conclusion: { variable: "Доступен летний горный отдых за границей", value: "да" }
+  
+  - id: 16
+    condition: 
+      - { variable: "Поездка по России", operator: "==", value: "да" }
+      - { variable: "Доступен городской тур", operator: "==", value: "да" }
+    conclusion: { variable: "Городской тур в России", value: "да" }
+  
+  - id: 17
+    condition: 
+      - { variable: "Возможна заграница", operator: "==", value: "да" }
+      - { variable: "Доступен городской тур", operator: "==", value: "да" }
+    conclusion: { variable: "Городской тур за границей", value: "да" }
+  
+  - id: 18
+    condition: 
+      - { variable: "Доступен пляжный отдых в России", operator: "==", value: "да" }
+      - { variable: "Короткий отпуск", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Черноморье" }
+  
+  - id: 19
+    condition: 
+      - { variable: "Доступен пляжный отдых в России", operator: "==", value: "да" }
+      - { variable: "Короткий отпуск", operator: "==", value: "нет" }
+    conclusion: { variable: "Результат", value: "Крым" }
+  
+  - id: 20
+    condition: 
+      - { variable: "Доступен пляжный отдых за границей", operator: "==", value: "да" }
+      - { variable: "Короткий отпуск", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Турция" }
+  
+  - id: 21
+    condition: 
+      - { variable: "Доступен пляжный отдых за границей", operator: "==", value: "да" }
+      - { variable: "Короткий отпуск", operator: "==", value: "нет" }
+    conclusion: { variable: "Результат", value: "Таиланд" }
+  
+  - id: 22
+    condition: 
+      - { variable: "Доступен зимний горный отдых в России", operator: "==", value: "да" }
+      - { variable: "Короткий отпуск", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Сочи" }
+  
+  - id: 23
+    condition: 
+      - { variable: "Доступен зимний горный отдых в России", operator: "==", value: "да" }
+      - { variable: "Короткий отпуск", operator: "==", value: "нет" }
+    conclusion: { variable: "Результат", value: "Домбай" }
+  
+  - id: 24
+    condition: 
+      - { variable: "Доступен зимний горный отдых за границей", operator: "==", value: "да" }
+      - { variable: "Короткий отпуск", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Альпы" }
+  
+  - id: 25
+    condition: 
+      - { variable: "Короткий отпуск", operator: "==", value: "да" }
+      - { variable: "Доступен летний горный отдых в России", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Кавказ" }
+  
+  - id: 26
+    condition: 
+      - { variable: "Короткий отпуск", operator: "==", value: "да" }
+      - { variable: "Доступен летний горный отдых за границей", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Карпаты" }
+  
+  - id: 27
+    condition: 
+      - { variable: "Короткий отпуск", operator: "==", value: "нет" }
+      - { variable: "Городской тур в России", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Москва" }
+  
+  - id: 28
+    condition: 
+      - { variable: "Короткий отпуск", operator: "==", value: "да" }
+      - { variable: "Городской тур в России", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Казань" }
+  
+  - id: 29
+    condition: 
+      - { variable: "Короткий отпуск", operator: "==", value: "нет" }
+      - { variable: "Городской тур за границей", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Париж" }
+  
+  - id: 30
+    condition: 
+      - { variable: "Короткий отпуск", operator: "==", value: "да" }
+      - { variable: "Городской тур за границей", operator: "==", value: "да" }
+    conclusion: { variable: "Результат", value: "Прага" }
+
+initial_facts: {}
