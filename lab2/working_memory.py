@@ -1,50 +1,62 @@
-from typing import Dict, Any, List
+from __future__ import annotations
+
+"""
+Модуль рабочей памяти — хранит факты и метаданные об их происхождении.
+"""
+
+from dataclasses import dataclass
+from typing import Dict, Iterable, List, Optional
+
+
+@dataclass(frozen=True)
+class FactRecord:
+    """Метаданные о факте в рабочей памяти."""
+
+    fact: str
+    source: str
+    supports: List[str]
+    timestamp: int
+
 
 class WorkingMemory:
-    """Класс для представления рабочей памяти экспертной системы"""
-    
-    def __init__(self, initial_facts: Dict[str, Any] = None):
+    """Рабочая память, доступная механизму вывода и компоненте объяснения."""
+
+    def __init__(self) -> None:
+        self._facts: Dict[str, FactRecord] = {}
+        self._counter: int = 0
+
+    def add_fact(self, fact: str, source: str, supports: Optional[Iterable[str]] = None) -> bool:
         """
-        Инициализирует рабочую память с начальными фактами
-        :param initial_facts: словарь начальных фактов
+        Добавляет новый факт.
+
+        Возвращает True, если факт был добавлен, либо False, если он уже присутствовал.
         """
-        self.facts = initial_facts or {}
-        self.derivation_trace = []  # История вывода для объяснений
-    
-    def add_fact(self, variable: str, value: Any):
-        """Добавляет факт в рабочую память"""
-        self.facts[variable] = value
-        # Логируем добавление факта
-        self.derivation_trace.append({
-            'action': 'add_fact',
-            'variable': variable,
-            'value': value,
-            'from_rule': None
-        })
-    
-    def update_fact(self, variable: str, value: Any, rule_id: int = None):
-        """Обновляет значение факта и записывает происхождение"""
-        self.facts[variable] = value
-        # Логируем обновление факта
-        self.derivation_trace.append({
-            'action': 'update_fact',
-            'variable': variable,
-            'value': value,
-            'from_rule': rule_id
-        })
-    
-    def get_fact(self, variable: str) -> Any:
-        """Возвращает значение факта по имени переменной"""
-        return self.facts.get(variable)
-    
-    def has_fact(self, variable: str, value: Any) -> bool:
-        """Проверяет наличие факта с определенным значением"""
-        return self.facts.get(variable) == value
-    
-    def get_all_facts(self) -> Dict[str, Any]:
-        """Возвращает все факты в рабочей памяти"""
-        return self.facts.copy()
-    
-    def get_derivation_trace(self) -> List[Dict]:
-        """Возвращает историю вывода"""
-        return self.derivation_trace
+        if fact in self._facts:
+            return False
+
+        self._counter += 1
+        record = FactRecord(
+            fact=fact,
+            source=source,
+            supports=list(supports or []),
+            timestamp=self._counter,
+        )
+        self._facts[fact] = record
+        return True
+
+    def has_fact(self, fact: str) -> bool:
+        """Проверяет наличие факта."""
+        return fact in self._facts
+
+    def get_record(self, fact: str) -> FactRecord:
+        """Возвращает метаданные факта."""
+        return self._facts[fact]
+
+    def facts(self) -> List[str]:
+        """Возвращает список фактов в порядке появления."""
+        return [record.fact for record in sorted(self._facts.values(), key=lambda item: item.timestamp)]
+
+    def items(self) -> List[FactRecord]:
+        """Возвращает записи (для диагностики/объяснений)."""
+        return list(sorted(self._facts.values(), key=lambda item: item.timestamp))
+
