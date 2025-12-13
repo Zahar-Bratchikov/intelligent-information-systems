@@ -3,8 +3,8 @@ import numpy as np
 
 # Классы фигур
 SHAPES = [
-    "Circle", "Heptagon", "Hexagon", "Nonagon",
-    "Octagon", "Pentagon", "Square", "Triangle", "Star"
+    "circle", "parallelogram", "rhombus", "trapezoid",
+    "kite", "rectangle", "square", "triangle"
 ]
 
 class DatasetManager:
