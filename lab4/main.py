@@ -12,7 +12,7 @@ from models import (
 class CollectiveDecisionApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Экспертная система: выбор места отдыха")
+        self.root.title("Экспертная система")
         self.root.geometry("800x700")
 
         # Данные
@@ -26,12 +26,12 @@ class CollectiveDecisionApp:
         frame_top = ttk.Frame(self.root, padding="10")
         frame_top.pack(fill=tk.X)
 
-        ttk.Button(frame_top, text="Добавить вариант отдыха", command=self.add_alternative).pack(side=tk.LEFT, padx=5)
+        ttk.Button(frame_top, text="Добавить вариант голосования", command=self.add_alternative).pack(side=tk.LEFT, padx=5)
         ttk.Button(frame_top, text="Добавить избирателя", command=self.add_voter).pack(side=tk.LEFT, padx=5)
         ttk.Button(frame_top, text="Провести голосование", command=self.collect_votes).pack(side=tk.LEFT, padx=5)
         ttk.Button(frame_top, text="Показать результаты", command=self.show_results).pack(side=tk.LEFT, padx=5)
 
-        ttk.Label(self.root, text="Варианты отдыха:").pack(anchor=tk.W, padx=10, pady=(10, 0))
+        ttk.Label(self.root, text="Варианты голосования:").pack(anchor=tk.W, padx=10, pady=(10, 0))
         self.alternatives_listbox = tk.Listbox(self.root, height=6)
         self.alternatives_listbox.pack(fill=tk.X, padx=10, pady=5)
 
@@ -44,7 +44,7 @@ class CollectiveDecisionApp:
         self.profile_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
 
     def add_alternative(self):
-        alt = simpledialog.askstring("Новый вариант", "Введите название места отдыха:")
+        alt = simpledialog.askstring("Новый вариант", "Введите вариант для голосования:")
         if alt and alt.strip():
             alt = alt.strip()
             if alt not in self.alternatives:
@@ -65,7 +65,7 @@ class CollectiveDecisionApp:
 
     def collect_votes(self):
         if not self.alternatives:
-            messagebox.showerror("Ошибка", "Сначала добавьте варианты отдыха.")
+            messagebox.showerror("Ошибка", "Сначала добавьте варианты голосования.")
             return
         if not self.voters:
             messagebox.showerror("Ошибка", "Сначала добавьте избирателей.")
